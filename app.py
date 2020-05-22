@@ -113,5 +113,7 @@ def page_not_found(error):
 
 if __name__=='__main__':
     app.debug = True
-    app.secret_key = os.urandom(32)
+    secret_key = os.urandom(32)
+    app.secret_key = secret_key
+    app.config['SECRET_KEY'] = secret_key
     app.run()
