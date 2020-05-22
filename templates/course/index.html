@@ -1,0 +1,71 @@
+{% extends "layout/index.html" %}
+
+{% block title %} {{course_name}} {% endblock %} 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{url_for('static', filename='/course/assets/bootstrap/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='/course/assets/fonts/ionicons.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='/course/assets/css/styles.min.css')}}">
+{% endblock %}
+
+{% block content %}
+    <!-- small screen scroll down -->
+    <div id="subjects-dropdown">
+        <div class="dropdown d-block" style="margin-top: 10px;margin-right: auto;margin-bottom: 10px;margin-left: auto;">
+            <button class="btn btn-primary dropdown-toggle d-block" data-toggle="dropdown" aria-expanded="false" type="button" style="width: 70%;background-color: rgb(255,255,255);color: rgb(0,0,0);margin-right: auto;margin-left: auto;">
+                Course Content
+            </button>
+            <div class="dropdown-menu" role="menu">
+                {% for content in course_content %}
+                <h5 class="dropdown-heading">{{ content.subject }}</h5>
+                    {% for article_name in content.articles %}
+                    <a class="dropdown-item" role="presentation" href="{{url_for('article', course_name=course_name, subject=content.subject, article_name=article_name) }}">
+                        {{ article_name }}
+                    </a>
+                    {% endfor %}
+                <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2" id="side-bar">
+            <div role="tablist" id="accordion-1">
+                {% for content in course_content %}
+                <div class="card">
+                    <div class="card-header" role="tab">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-{{loop.index}}" href="#accordion-1 .item-{{loop.index}}">
+                                {{ content.subject }}
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="collapse item-{{loop.index}} {% if loop.index == 1 %} show {% endif %}" role="tabpanel" data-parent="#accordion-1">
+                        <div class="card-body">
+                            <ul class="list-unstyled text-left">
+                                {% for article_name in content.articles %}
+                                <li><a href="{{url_for('article', course_name=course_name, subject=content.subject, article_name=article_name) }}">
+                                        {{ article_name }}
+                                    </a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+               {% endfor %}
+            </div>
+        </div>
+        
+        <!-- article -->
+        <div class="col content">
+            <h1 class="course-name">{{ course_name }}</h1>
+            <hr>
+            <p>{{ article|safe }}</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{url_for('static', filename='/course/assets/js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static', filename='/course/assets/bootstrap/js/bootstrap.min.js')}}"></script>
+{% endblock %}

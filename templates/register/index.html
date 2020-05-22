@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register/assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='register/assets/css/Login-Form-Clean.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='register/assets/css/styles.css') }}">
+</head>
+
+<body>
+    <!-- Start: Login Form Clean -->
+    <div class="login-clean" style="background-color: #d4ebf0;">
+        <form method="post" style="max-width: 500px;">
+            {{ form.hidden_tag() }}
+            <h2 class="sr-only">Register Form</h2>
+            <div class="illustration">
+                <h1 style="color: #DE5B15;">REGISTER</h1>
+                <hr>
+            </div>
+            <div class="form-group">
+                {{ form.first_name(class_="form-control", placeholder="First Name") }}
+            </div>
+            <div class="form-group">
+                {{ form.last_name(class_="form-control", placeholder="Last Name") }}
+            </div>
+            <div class="form-group">
+                {{ form.username(class_="form-control", placeholder="Username") }}
+            </div>
+            <div class="form-group">
+                {{ form.password(class_="form-control", placeholder="Password") }}
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit" style="background-color: #DE5B15;">Log In</button>
+            </div>
+            <a class="forgot" href="{{ url_for('login') }}">Already have an account? Login here.</a></form>
+    </div>
+    <!-- End: Login Form Clean -->
+    <script src="{{ url_for('static', filename='register/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='register/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>

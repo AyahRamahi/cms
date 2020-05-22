@@ -1,0 +1,40 @@
+{% extends "layout/index.html" %}
+
+{% block title %} Profile {% endblock %} 
+{% block stylesheets %}
+    <link rel="stylesheet" href="static/profile/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/profile/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="static/profile/assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="static/profile/assets/css/orange-navbar.css">
+    <link rel="stylesheet" href="static/profile/assets/css/Profile-Card.css">
+    <link rel="stylesheet" href="static/profile/assets/css/styles.css">
+    <link rel="stylesheet" href="static/profile/assets/css/Swiper-Slider-Card-For-Blog-Or-Product-1.css">
+    <link rel="stylesheet" href="static/profile/assets/css/Swiper-Slider-Card-For-Blog-Or-Product.css">
+{% endblock %}
+
+{% block content %}
+    <div style="background-color: #ffffff;">
+        <button class="btn btn-sm text-center border rounded shadow-sm float-right" type="button" style="background-color: #DE5B15;color: rgb(255,255,255);opacity: 0.92;margin-right: 3vw;margin-top: 10px;">Edit Profile</button><div><br></div>
+        <div>
+            <!-- Start: Gravatar Image --><img class="shadow rounded-circle" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200" loading="eager">
+            <!-- End: Gravatar Image -->
+            <h1 class="text-center" style="margin-top: 11px;color: #DE5B15;">
+                {{ firstname }} {{ lastname }}
+            </h1>
+        </div>
+        <div class="border rounded shadow" style="min-height: 200px;background-color: #B5DFE7;max-width: 95vw;margin-right: auto;margin-left: auto;margin-top: 34px;margin-bottom: 20px;">
+            <h6 class="text-center" style="margin-top: 11px;line-height: 31px;font-size: 25px;color: #DE5B15;">About</h6>
+            <hr style="color: rgb(255,255,255);">
+            <ul class="list-unstyled" style="margin-left: 26px;color: rgb(0,0,0);">
+                <li><strong>Gender</strong> &nbsp;Male</li>
+                <li><strong>Birthday &nbsp;</strong>June 3, 1980</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="static/profile/assets/js/jquery.min.js"></script>
+    <script src="static/profile/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/profile/assets/js/Swiper-Slider-Card-For-Blog-Or-Product.js"></script>
+    {% endblock %}

@@ -1,0 +1,12 @@
+/env
+/course
+/home
+/courses
+
+.vscode
+.cache/
+/__pycache__
+
+mongodb_test.py
+
+ToDo.md
