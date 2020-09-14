@@ -2,6 +2,7 @@
 
 {% block title %} Profile {% endblock %} 
 {% block stylesheets %}
+    <!-- stylesheets import start -->
     <link rel="stylesheet" href="static/profile/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/profile/assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="static/profile/assets/css/Footer-Dark.css">
@@ -10,31 +11,122 @@
     <link rel="stylesheet" href="static/profile/assets/css/styles.css">
     <link rel="stylesheet" href="static/profile/assets/css/Swiper-Slider-Card-For-Blog-Or-Product-1.css">
     <link rel="stylesheet" href="static/profile/assets/css/Swiper-Slider-Card-For-Blog-Or-Product.css">
+    <link rel="stylesheet" href="static/profile/assets/css/progress-bar.css">
+    <!-- stylesheets import end -->
 {% endblock %}
 
 {% block content %}
     <div style="background-color: #ffffff;">
-        <button class="btn btn-sm text-center border rounded shadow-sm float-right" type="button" style="background-color: #DE5B15;color: rgb(255,255,255);opacity: 0.92;margin-right: 3vw;margin-top: 10px;">Edit Profile</button><div><br></div>
+        <!-- edit profile button -->
+        <a href="{{ url_for('edit_profile') }}">
+            <button class="btn btn-sm text-center border rounded shadow-sm float-right" type="button" style="background-color: #DE5B15;color: rgb(255,255,255);opacity: 0.92;margin-right: 3vw;margin-top: 10px;">Edit Profile</button>
+        </a>
+
+        <!-- space -->
         <div>
-            <!-- Start: Gravatar Image --><img class="shadow rounded-circle" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200" loading="eager">
-            <!-- End: Gravatar Image -->
+            <br>
+        </div>
+        <br>
+
+        <!-- user full name -->
+        <div>
             <h1 class="text-center" style="margin-top: 11px;color: #DE5B15;">
-                {{ firstname }} {{ lastname }}
+                {{ name }}
             </h1>
         </div>
-        <div class="border rounded shadow" style="min-height: 200px;background-color: #B5DFE7;max-width: 95vw;margin-right: auto;margin-left: auto;margin-top: 34px;margin-bottom: 20px;">
-            <h6 class="text-center" style="margin-top: 11px;line-height: 31px;font-size: 25px;color: #DE5B15;">About</h6>
+
+
+        <!-- ongoing courses card start -->
+        <div class="border rounded shadow" style="min-height: 200px;max-width: 95vw;margin-right: auto;margin-left: auto;margin-top: 34px;margin-bottom: 20px;">
+            <!-- subject -->
+            <h6 class="text-center" style="margin-top: 11px;line-height: 31px;font-size: 25px;color: #DE5B15;">
+                Ongoing Courses
+            </h6>
+
             <hr style="color: rgb(255,255,255);">
-            <ul class="list-unstyled" style="margin-left: 26px;color: rgb(0,0,0);">
-                <li><strong>Gender</strong> &nbsp;Male</li>
-                <li><strong>Birthday &nbsp;</strong>June 3, 1980</li>
+
+            <!-- ongoing courses list start -->
+            <ul class="list-unstyled" style="margin-left: 26px; margin-right: 26px; float:inline-start;">
+                {% for course in ongoing_courses %}
+                    <a href="{{ url_for('course', course_name = course.course_name) }}">
+                        <li style="display: inline-block; ">
+                            <div class="container p-5">
+                                <div class="progress" data-percentage="{{ course.finished_articles_count }}">
+                                    <!-- progress bars -->
+                                    <span class="progress-left">
+                                        <span class="progress-bar"></span>
+                                    </span>
+                                    <span class="progress-right">
+                                        <span class="progress-bar"></span>
+                                    </span>
+
+                                    <!-- course name and percentage start -->
+                                    <div class="progress-value">
+                                        <div>
+                                            {{ course.finished_articles_count}}%<br>
+                                            <span>{{ course.course_name }}</span>
+                                        </div>
+                                    </div>
+                                    <!-- course name and percentage end -->
+                                </div>
+                            </div>
+                        </li>
+                    </a>
+                {% endfor %}
             </ul>
+            <!-- ongoing courses list end -->
         </div>
+        <!-- ongoing courses card end -->
+
+        <!-- completed courses card start -->
+        <div class="border rounded shadow" style="min-height: 200px;max-width: 95vw;margin-right: auto;margin-left: auto;margin-top: 34px;margin-bottom: 20px;">
+            <!-- subject -->
+            <h6 class="text-center" style="margin-top: 11px;line-height: 31px;font-size: 25px;color: #DE5B15;">
+                Completed Courses
+            </h6>
+
+            <hr style="color: rgb(255,255,255);">
+
+            <!-- completed courses list start -->
+            <ul class="list-unstyled" style="margin-left: 26px; margin-right: 26px; float:inline-start;">
+                {% for course in completed_courses %}
+                    <a href="{{ url_for('course', course_name = course.course_name) }}">
+                        <li style="display: inline-block; ">
+                            <div class="container p-5">
+                                <div class="progress" data-percentage="100">
+                                    <!-- progress bars -->
+                                    <span class="progress-left">
+                                        <span class="progress-bar"></span>
+                                    </span>
+                                    <span class="progress-right">
+                                        <span class="progress-bar"></span>
+                                    </span>
+
+                                    <!-- course name and percentage start -->
+                                    <div class="progress-value">
+                                        <div>
+                                            100%<br>
+                                            <span>{{ course }}</span>
+                                        </div>
+                                    </div>
+                                    <!-- course name and percentage end -->
+                                </div>
+                            </div>
+                        </li>
+                    </a>
+                {% endfor %}
+            </ul>
+            <!-- completed courses list start -->
+        </div>
+        <!-- completed courses card end -->
+
     </div>
 {% endblock %}
 
 {% block scripts %}
+    <!-- JS imports start -->
     <script src="static/profile/assets/js/jquery.min.js"></script>
     <script src="static/profile/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/profile/assets/js/Swiper-Slider-Card-For-Blog-Or-Product.js"></script>
-    {% endblock %}
+    <!-- JS imports end -->
+{% endblock %}

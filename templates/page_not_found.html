@@ -1,17 +1,22 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <!-- favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
     <title>Page Not Found</title>
     
+    <!-- stylesheets import start -->
     <link rel="stylesheet" href="{{ url_for('static', filename='/page_not_found/styles.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@584&display=swap" rel="stylesheet">
+    <!-- stylesheets import end -->
 </head>
 <body>
     <div>
         <h1>404</h1>
         <h3>The page you are looking for can't be found!</h3>
+
+        <!-- home link -->
         <a href="{{ url_for('home') }}"> < Return to homepage </a>
     </div>
 </body>

@@ -4,43 +4,74 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <!-- favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    
     <title>register</title>
+
+    <!-- stylesheets import start -->
     <link rel="stylesheet" href="{{ url_for('static', filename='register/assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='register/assets/css/Login-Form-Clean.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='register/assets/css/styles.css') }}">
+    <!-- stylesheets import end -->
 </head>
 
 <body>
-    <!-- Start: Login Form Clean -->
-    <div class="login-clean" style="background-color: #d4ebf0;">
+    <!-- register form start -->
+    <div class="login-clean">
         <form method="post" style="max-width: 500px;">
-            {{ form.hidden_tag() }}
+            <!-- home icon -->
+            <a href="/">
+                <i class="fas fa-home" style="font-size: larger; color:#de5b15;"></i>
+            </a>
+            <!-- form subject -->
             <h2 class="sr-only">Register Form</h2>
+            {{ form.hidden_tag() }}
+
+            <!-- form logo -->
             <div class="illustration">
                 <h1 style="color: #DE5B15;">REGISTER</h1>
                 <hr>
             </div>
+
+            <!-- first name -->
             <div class="form-group">
                 {{ form.first_name(class_="form-control", placeholder="First Name") }}
             </div>
+
+            <!-- last name -->
             <div class="form-group">
                 {{ form.last_name(class_="form-control", placeholder="Last Name") }}
             </div>
+
+            <!-- username -->
             <div class="form-group">
                 {{ form.username(class_="form-control", placeholder="Username") }}
             </div>
+
+            <!-- password -->
             <div class="form-group">
                 {{ form.password(class_="form-control", placeholder="Password") }}
             </div>
+
+            <!-- register button start -->
             <div class="form-group">
-                <button class="btn btn-primary btn-block" type="submit" style="background-color: #DE5B15;">Log In</button>
+                <button class="btn btn-primary btn-block" type="submit" style="background-color: #DE5B15;">
+                    Register
+                </button>
             </div>
+            <!-- register button end -->
+
+            <!-- log in link -->
             <a class="forgot" href="{{ url_for('login') }}">Already have an account? Login here.</a></form>
     </div>
-    <!-- End: Login Form Clean -->
+    <!-- register form end -->
+    
+    <!-- JS imports start -->
     <script src="{{ url_for('static', filename='register/assets/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='register/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="https://kit.fontawesome.com/f65143ef3d.js" crossorigin="anonymous"></script>
+    <!-- JS imports end -->
 </body>
 
 </html>

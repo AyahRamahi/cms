@@ -1,0 +1,68 @@
+{% extends "layout/index.html" %}
+
+{% block title %} Project Name {% endblock %} 
+{% block stylesheets %}
+    <link rel="stylesheet" href="static/home/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900&amp;subset=cyrillic">
+    <link rel="stylesheet" href="static/home/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="static/home/assets/css/styles.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script type="text/javascript" src="static/semantic_ui_test.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <!-- large screen left side accordion -->
+
+  <!-- test semantic ui accordion -->
+  <div class="col-2" id="side-bar">
+      <div class="ui accordion">
+          <div class="active title">
+            <i class="dropdown icon"></i>
+            What is a dog?
+          </div>
+          <div class="active content">
+              <i>one</i>
+              <i>two</i>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            What kinds of dogs are there?
+          </div>
+          <div class="content">
+              <i>one</i>
+              <i>two</i>
+          </div>
+          <div class="title">
+            <i class="dropdown icon"></i>
+            How do you acquire a dog?
+          </div>
+          <div class="content">
+            <i>one</i>
+            <i>two</i>
+          </div>
+        </div>
+  </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+    <!-- <script src="static/home/assets/js/jquery.min.js"></script> -->
+    <script src="static/home/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+    <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
+    <script src="static/home/assets/js/script.min.js"></script>
+
+
+    <script>
+
+      $(document).ready(function() {
+          $('.ui.accordion').accordion()
+      });
+  </script>
+{% endblock %}

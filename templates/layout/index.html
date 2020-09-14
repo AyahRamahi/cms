@@ -1,92 +1,142 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    {% block head %}
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-        
-        <title>{% block title %}{% endblock %}</title>
-        {% block stylesheets %} {% endblock %}
-    {% endblock %}
-</head>
+    <head>
+        {% block head %}
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+            <!-- favicon -->
+            <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+            
+            <!-- title placeholder -->
+            <title>{% block title %}{% endblock %}</title>
 
-<body>
-    {% block navbar %}
-    <!-- Start: orange-navbar -->
-        <nav class="navbar navbar-light navbar-expand-md navigation-clean navbar-inverse navbar-fixed-top" style="margin-bottom: 0px;">
-            <div class="container">
-                <div><a class="navbar-brand" style="padding:0px;margin-left:0px;height:78px;" href="#"> <img src="{{ url_for('static', filename='/layout/assets/img/logo-placeholder.png') }}"></a></div><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-                <div
-                    class="collapse navbar-collapse" id="navcol-1">
-                    <ul class="nav navbar-nav ml-auto" style="margin-top:13px;">
-                        <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:50" href="{{ url_for('home') }}">Home </a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:100" href="{{ url_for('home') }}">About</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:100" href="{{ url_for('courses') }}">Courses</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:50" href="{{ url_for('home') }}">Contact</a></li>
-                        {% if current_user.is_authenticated %}
-                            <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:50" href="{{ url_for('profile') }}">Profile</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:50" href="{{ url_for('logout') }}">Logout</a></li>
-                        {% else %}
-                        <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:50" href="{{ url_for('login') }}">Login</a></li>
-                        {% endif %}
-                    </ul>
-            </div>
-            </div>
-        </nav>
-    <!-- End: orange-navbar -->
-    {% endblock %}
+            <!-- stylesheets imports placeholder -->
+            {% block stylesheets %} {% endblock %}
+        {% endblock %}
+    </head>
 
-    {% block content %}
-    {% endblock %}
-
-    {% block footer %}
-    <!-- Start: Footer Dark -->
-        <div class="footer-dark">
-            <footer>
+    <body>
+        <!-- navbar section start -->
+        {% block navbar %}
+            <nav class="navbar navbar-light navbar-expand-md navigation-clean navbar-inverse navbar-fixed-top" style="margin-bottom: 0px;">
                 <div class="container">
-                    <div class="row">
-                        <!-- Start: Services -->
-                        <div class="col-sm-6 col-md-3 item">
-                            <h3>Services</h3>
-                            <ul>
-                                <li><a href="#">Web design</a></li>
-                                <li><a href="#">Development</a></li>
-                                <li><a href="#">Hosting</a></li>
-                            </ul>
-                        </div>
-                        <!-- End: Services -->
-                        <!-- Start: About -->
-                        <div class="col-sm-6 col-md-3 item">
-                            <h3>About</h3>
-                            <ul>
-                                <li><a href="#">Company</a></li>
-                                <li><a href="#">Team</a></li>
-                                <li><a href="#">Careers</a></li>
-                            </ul>
-                        </div>
-                        <!-- End: About -->
-                        <!-- Start: Footer Text -->
-                        <div class="col-md-6 item text">
-                            <h3>Company Name</h3>
-                            <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
-                        </div>
-                        <!-- End: Footer Text -->
-                        <!-- Start: Social Icons -->
-                        <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
-                        <!-- End: Social Icons -->
+                    <!-- logo section start -->
+                    <div>
+                        <a class="navbar-brand" style="padding:0px;margin-left:0px;height:78px;" href="#">
+                            <img src="{{ url_for('static', filename='/layout/assets/img/logo-placeholder.png') }}">
+                        </a>
                     </div>
-                    <!-- Start: Copyright -->
-                    <p class="copyright">Company Name © 2017</p>
-                    <!-- End: Copyright -->
-                </div>
-            </footer>
-        </div>
-    <!-- End: Footer Dark -->
-    {% endblock %}
+                    <!-- logo section end -->
+                    
+                    <!-- small screen toggle button start -->
+                    <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+                        <span class="sr-only">
+                            Toggle navigation
+                        </span>
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <!-- small screen toggle button end -->
 
-    {% block scripts %} {% endblock %}
-</body>
+                    <!-- links section start -->
+                    <div
+                        class="collapse navbar-collapse" id="navcol-1">
+                        <ul class="nav navbar-nav ml-auto" style="margin-top:13px;">
+                            <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:50" href="{{ url_for('home') }}">Home </a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:100" href="{{ url_for('home') }}">About</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:100" href="{{ url_for('courses') }}">Courses</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:50" href="{{ url_for('home') }}">Contact</a></li>
+                            
+                            {% if current_user.is_authenticated %}
+                                <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:50" href="{{ url_for('profile') }}">Profile</a></li>
+                                <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:50" href="{{ url_for('logout') }}">Logout</a></li>
+                            {% else %}
+                            <li class="nav-item" role="presentation"><a class="nav-link" uk-scroll="offset:50" href="{{ url_for('login') }}">Login</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <!-- links section end -->
+
+                </div>
+            </nav>
+        {% endblock %}
+        <!-- navbar section end -->
+
+        <!-- page content placeholder -->
+        {% block content %}
+        {% endblock %}
+
+        <!-- footer section start -->
+        {% block footer %}
+            <div class="footer-dark">
+                <footer>
+                    <div class="container">
+                        <div class="row">
+                            <!-- services section start -->
+                            <div class="col-sm-6 col-md-3 item">
+                                <h3>Services</h3>
+                                <ul>
+                                    <li><a href="#">Web design</a></li>
+                                    <li><a href="#">Development</a></li>
+                                    <li><a href="#">Hosting</a></li>
+                                </ul>
+                            </div>
+                            <!-- services section end -->
+
+                            <!-- about section start -->
+                            <div class="col-sm-6 col-md-3 item">
+                                <h3>About</h3>
+                                <ul>
+                                    <li><a href="#">Company</a></li>
+                                    <li><a href="#">Team</a></li>
+                                    <li><a href="#">Careers</a></li>
+                                </ul>
+                            </div>
+                            <!-- about section end -->
+
+                            <!-- footer text section start -->
+                            <div class="col-md-6 item text">
+                                <h3>Company Name</h3>
+                                <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+                            </div>
+                            <!-- footer text section end -->
+
+                            <!-- social icons section start -->
+                            <div class="col item social">
+                                <!-- facebook -->
+                                <a href="#">
+                                    <i class="icon ion-social-facebook"></i>
+                                </a>
+                                
+                                <!-- twitter -->
+                                <a href="#">
+                                    <i class="icon ion-social-twitter"></i>
+                                </a>
+
+                                <!-- snapchat -->
+                                <a href="#">
+                                    <i class="icon ion-social-snapchat"></i>
+                                </a>
+
+                                <!-- instagram -->
+                                <a href="#">
+                                    <i class="icon ion-social-instagram"></i>
+                                </a>
+                            </div>
+                            <!-- social icons section end -->
+                        </div>
+
+                        <!-- copyright section start -->
+                        <p class="copyright">Company Name © 2017</p>
+                        <!-- copyright section end -->
+                    </div>
+                </footer>
+            </div>
+        <!-- footer section end -->
+        {% endblock %}
+
+        <!-- JS imports section placeholder -->
+        {% block scripts %} {% endblock %}
+    </body>
 
 </html>

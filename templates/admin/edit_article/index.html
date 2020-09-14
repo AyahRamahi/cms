@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title> Edit article </title>
+
+        <style>
+            body{
+                width: 70vw;
+                height: 30em;
+                margin-left: auto;
+                margin-right:auto;
+            }
+            #submit-button{
+                margin-top: 10px;
+                display: block;
+            }
+            #article-content{
+                margin-top: 20px;
+                width: 70rem;
+                height: 100%;
+            }
+            #article-name{
+                width: 20em;
+                height: 2em;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="form-container" class="container">
+            <form action="{{ url_for('edit_article', course_name=course_name, subject=subject, article_name=article_name) }}" method="post">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="form-group">
+                            <label for="display_name">Name</label>
+                            <input class="form-control" name="name" type="text" value="{{article_name}}" id="article-name" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group" id="editor-div">
+                    <label for="content">Content</label>
+                    <textarea name="content" id="article-content">
+                        {{article_content}}
+                    </textarea>
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary" type="submit" id="submit-button">Save</button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            /*
+            function send_data(newArticleContent){
+                console.log(newArticleContent);
+                console.log('{{article_name}}');
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin_home/edit_article/{{course_name}}/{{subject}}/{{article_name}}',
+                    data: JSON.stringify(newArticleContent),
+                    success: function() {
+                        return true;
+                    }
+                });
+                return false;
+            }
+            var form = document.querySelector('form');
+            form.onsubmit = function() {
+                let newArticleContent = {
+                    'name': document.querySelector('#article-name').value,
+                    'htmlContent': quill.root.innerHTML,
+                    'quillContent': JSON.stringify(quill.getContents()["ops"])
+                }
+                console.log(JSON.stringify(quill.getContents()["ops"]));
+                //console.log(JSON.stringify(newArticleContent));
+                send_data(newArticleContent);
+                return false;
+            };
+            */
+        </script>
+    </body>
+</html>

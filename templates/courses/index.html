@@ -2,33 +2,55 @@
 
 {% block title %} Courses {% endblock %} 
 {% block stylesheets %}
+    <!-- stylesheets import start -->
     <link rel="stylesheet" href="static/courses/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/courses/assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="static/courses/assets/css/styles.min.css">
+    <!-- stylesheets import end -->
 {% endblock %}
 
 {% block content %}
+    {% if not current_user.is_authenticated %}
+        <a href="{{ url_for('login') }}">
+            <div class="alert alert-info" role="alert" style="max-width: 90vw; margin-left: auto; margin-right: auto; text-align: center;">
+                Login to see courses content!
+            </div>
+        </a>
+    {% endif %}
+    <!-- courses list section start -->
     <div class="d-md-flex d-lg-flex d-xl-flex flex-row flex-fill flex-wrap mx-auto justify-content-md-center align-items-md-end justify-content-lg-center align-items-lg-start justify-content-xl-center courses" style="margin-bottom: 20px;">
-        <div class="card course"><img class="card-img-top w-100 d-block" src="static/courses/assets/img/img-placeholder.png">
-            <div class="card-body">
-                <h4 class="card-title">Title</h4>
-                <p class="card-text">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p><button class="btn btn-primary" type="button">Button</button></div>
-        </div>
         {% for course in courses_list %}
             <div class="card course"><img class="card-img-top w-100 d-block" src="static/courses/assets/img/img-placeholder.png">
                 <div class="card-body">
+                    <!-- course name-->
                     <h4 class="card-title">{{ course.name }}</h4>
+                    
+                    <!-- course description-->
                     <p class="card-text">{{ course.description }}</p>
-                    <button class="btn btn-primary" type="button">
-                        <a href="{{ url_for('course', course_name= course.name) }}">Visit</a>
-                    </button>
+                    
+                    <!-- visit/enroll button start -->
+                    {% if current_user.is_authenticated %}
+                        <button class="btn btn-primary" type="button">
+                            <a href="{{ url_for('course', course_name= course.name) }}">
+                                {% if current_user.is_enrolled(course.name) %}
+                                    Visit
+                                {% else %}
+                                    Enroll
+                                {% endif %}
+                            </a>
+                        </button>
+                    {% endif %}
+                    <!-- visit/enroll button end -->
                 </div>
             </div>
         {% endfor %}
     </div>
+    <!-- courses list section end -->
 {% endblock %}
 
 {% block scripts %}
+    <!-- JS imports start -->
     <script src="static/courses/assets/js/jquery.min.js"></script>
     <script src="static/courses/assets/bootstrap/js/bootstrap.min.js"></script>
+    <!-- JS imports end -->
 {% endblock %}

@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <title>Edit {{course_name}}</title>
+
+        <!-- stylesheets import start -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{url_for('static', filename='/course/assets/bootstrap/css/bootstrap.min.css')}}">
+        <!-- stylesheets import end -->
+
+        <style>
+            a{
+                color:#007bff !important;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <a href="{{ url_for('admin_home') }}">
+            <button>
+                Back to courses
+            </button>
+        </a>
+
+        <br>
+
+        <h1>
+            {{ course_name }}
+        </h1>
+        <form id="edit-course-name-input" style="display: none;">
+            <label>
+                Course name:
+            </label>
+            <input type="text" name="new_course_name" placeholder={{course_name}}>
+            <button>Save</button>
+        </form>
+        <ul id="subjects-list">
+            {% for content in course_content %}
+                <li>
+                    {{ content.subject }}
+                    (
+                        <a>edit</a>, 
+                        <a href="{{ url_for('delete_subject', course_name=course_name, subject=content.subject) }}">delete</a>
+                    )
+                    <ul>
+                        {% for article_name in content.articles %}
+                            <li>
+                                {{ article_name }}
+                                (
+                                    <a href="{{ url_for('edit_article', course_name=course_name, subject=content.subject, article_name=article_name) }}">edit</a>,
+                                    <a>delete</a>
+                                )
+                            </li>
+                        {% endfor %}
+                        <li>
+                            <a> New Article </a>
+                        </li>
+                    </ul>
+                </li>
+                <br>
+            {% endfor %}
+            <!-- add new subject -->
+            <li>
+                <a id="new-subject-link" onclick="show_new_subject_input()"> New Subject </a>
+                <form id="new-subject-input" style="display: none;" action="{{ url_for('new_subject', course_name=course_name) }}" method="POST">
+                    <label>
+                        Subject name:
+                    </label>
+                    <input type="text" name="new-subject-name" placeholder="Unique inside a course" id="new-subject-name">
+                    <button type="submit">Add</button>
+                </form>
+            </li>
+        </ul>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            function show_edit_course_input() {
+                $("#edit-course-name-input").toggle();
+                return false;
+            }
+            function show_new_subject_input(){
+                $("#new-subject-input").toggle();
+                $("#new-subject-link").toggle();
+                return false;
+            }
+        </script>
+    </body>
+</html>

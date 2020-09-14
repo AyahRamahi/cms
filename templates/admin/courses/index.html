@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Admin-Courses</title>
+
+        <!-- stylesheets import start -->
+        <link rel="stylesheet" href="static/courses/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="static/courses/assets/fonts/ionicons.min.css">
+        <link rel="stylesheet" href="static/courses/assets/css/styles.min.css">
+        <!-- stylesheets import end -->
+    </head>
+
+    <body>
+        <!-- courses list section start -->
+        <div class="d-md-flex d-lg-flex d-xl-flex flex-row flex-fill flex-wrap mx-auto justify-content-md-center align-items-md-end justify-content-lg-center align-items-lg-start justify-content-xl-center courses" style="margin-bottom: 20px;">
+            {% for course in courses_list %}
+                <div class="card course">
+                    <div class="card-body">
+                        <!-- course name-->
+                        <h4 class="card-title">{{ course.name }}</h4>
+            
+                        <!-- edit button start -->
+                        <button class="btn btn-primary" type="button">
+                            <a href="{{ url_for('edit_course', course_name= course.name) }}">
+                                Edit
+                            </a>
+                        </button>
+                        <!-- edit button end -->
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- courses list section end -->
+
+        <!-- JS imports start -->
+        <script src="static/courses/assets/js/jquery.min.js"></script>
+        <script src="static/courses/assets/bootstrap/js/bootstrap.min.js"></script>
+        <!-- JS imports end -->
+    </body>
+</html>

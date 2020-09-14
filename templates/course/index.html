@@ -2,70 +2,184 @@
 
 {% block title %} {{course_name}} {% endblock %} 
 {% block stylesheets %}
+    <!-- stylesheets import start -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='/course/assets/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='/course/assets/fonts/ionicons.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='/course/assets/css/styles.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='/course/assets/css/comments.css')}}">
+    <!-- stylesheets import end -->
 {% endblock %}
 
 {% block content %}
-    <!-- small screen scroll down -->
+    <!-- small screen scroll down start -->
     <div id="subjects-dropdown">
         <div class="dropdown d-block" style="margin-top: 10px;margin-right: auto;margin-bottom: 10px;margin-left: auto;">
+            <!-- list button -->
             <button class="btn btn-primary dropdown-toggle d-block" data-toggle="dropdown" aria-expanded="false" type="button" style="width: 70%;background-color: rgb(255,255,255);color: rgb(0,0,0);margin-right: auto;margin-left: auto;">
                 Course Content
             </button>
+
+            <!-- list content -->
             <div class="dropdown-menu" role="menu">
                 {% for content in course_content %}
-                <h5 class="dropdown-heading">{{ content.subject }}</h5>
+                    <!-- subject -->
+                    <h5 class="dropdown-heading">{{ content.subject }}</h5>
                     {% for article_name in content.articles %}
-                    <a class="dropdown-item" role="presentation" href="{{url_for('article', course_name=course_name, subject=content.subject, article_name=article_name) }}">
-                        {{ article_name }}
-                    </a>
+                        <!-- article name -->
+                        <a class="dropdown-item" role="presentation" href="{{url_for('article', course_name=course_name, subject=content.subject, article_name=article_name) }}">
+                            {{ article_name }}
+                        </a>
                     {% endfor %}
-                <hr>
+                    <hr>
                 {% endfor %}
             </div>
         </div>
     </div>
+    <!-- small screen scroll down end -->
 
+    <!-- accordion section start -->
     <div class="row">
         <div class="col-2" id="side-bar">
             <div role="tablist" id="accordion-1">
                 {% for content in course_content %}
-                <div class="card">
-                    <div class="card-header" role="tab">
-                        <h5 class="mb-0">
-                            <a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-{{loop.index}}" href="#accordion-1 .item-{{loop.index}}">
-                                {{ content.subject }}
-                            </a>
-                        </h5>
-                    </div>
-                    <div class="collapse item-{{loop.index}} {% if loop.index == 1 %} show {% endif %}" role="tabpanel" data-parent="#accordion-1">
-                        <div class="card-body">
-                            <ul class="list-unstyled text-left">
-                                {% for article_name in content.articles %}
-                                <li><a href="{{url_for('article', course_name=course_name, subject=content.subject, article_name=article_name) }}">
-                                        {{ article_name }}
-                                    </a></li>
-                                {% endfor %}
-                            </ul>
+                    <div class="card">
+                        <!-- subject -->
+                        <div class="card-header" role="tab">
+                            <h5 class="mb-0">
+                                <a data-toggle="collapse" aria-expanded="false" aria-controls="accordion-1 .item-{{loop.index}}" href="#accordion-1 .item-{{loop.index}}">
+                                    {{ content.subject }}
+                                </a>
+                            </h5>
                         </div>
+
+                        <!-- article name -->
+                        <div class="collapse item-{{loop.index}} show" role="tabpanel" data-parent="#accordion-1">
+                            <div class="card-body">
+                                <ul class="list-unstyled text-left">
+                                    {% for article_name in content.articles %}
+                                        <li>
+                                            <a href="{{url_for('article', course_name=course_name, subject=content.subject, article_name=article_name) }}">
+                                                {{ article_name }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
                {% endfor %}
             </div>
         </div>
+        <!-- accordion section end -->
         
-        <!-- article -->
+        <!-- page content section start -->
         <div class="col content">
-            <h1 class="course-name">{{ course_name }}</h1>
-            <hr>
-            <p>{{ article|safe }}</p>
+            <!-- article section start -->
+            <div class="article-section">
+                <!-- course name -->
+                <h1 class="course-name">{{ course_name }}</h1>
+                <hr>
+
+                <!-- article content -->
+                <p>{{ article.content|safe }}</p>
+
+                <!-- mark as complete button start -->
+                {% if article_name %}
+                    <form>
+                        <button id ="complete_button" class="btn" type="button" onclick="mark_as_complete()">
+                            {% if current_user.is_completed_article(article._id) %}Completed!{% else %}Mark as complete{% endif %}
+                        </button>
+                    </form>
+                {% endif %}
+                <!-- mark as complete button end -->
+            </div>
+            <!-- article section end -->
+
+            <!-- comments section start -->
+            {% if article_name %}
+                <div>
+                    <section class="content-item" id="comments">
+                        <div class="container">
+                            <!-- new comment form start -->
+                            {% if current_user.is_authenticated %}
+                                <form action="{{  url_for('article', course_name = course_name, subject = subject, article_name = article_name) }}" method="POST">
+                                    <h3 style="display:inline;">New Comment
+                                        <button class="btn" type="submit">Submit</button>
+                                    </h3>
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="form-group col-lg-12">
+                                                <textarea class="form-control" name="comment" placeholder="Your comment" required=""></textarea>
+                                            </div>
+                                        </div>  	
+                                    </fieldset>
+                                </form>
+                            {% endif %}
+                            <!-- new comment form end -->
+                            
+                            <!-- all comments section start -->
+                            <h3>Comments</h3>
+
+                            {% for comment in comments %}
+                                {% if comment %}
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <!-- name and username of commenter -->
+                                            <h4 class="media-heading">
+                                                {{ comment.name }} 
+                                                <small class="text-muted" style="font-size: 0.70em;">@{{ comment.username }}</small>
+                                            </h4>
+
+                                            <!-- delete comment icon -->
+                                            {% if current_user.is_authenticated and comment.name == current_user.get_full_name() %}
+                                                <a href="{{ url_for('remove_comment', course_name = course_name, subject = subject, article_name = article_name, id = comment._id) }}">
+                                                    <i class="fas fa-trash" style="color: red; float: right;"></i>
+                                                </a>
+                                            {% endif %}
+
+                                            <!-- comment content -->
+                                            <p>{{ comment.comment }}</p>
+
+                                            <!-- comment date -->
+                                            <ul class="list-unstyled list-inline media-detail pull-left">
+                                                <li><i class="fa fa-calendar"></i>{{ comment.date }}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            <!-- all comments section end -->
+
+                        </div>
+                    </section>    
+                </div>
+            {% endif %}
         </div>
+        <!-- page content section end -->
+
     </div>
 {% endblock %}
 
 {% block scripts %}
+    <!-- Ajax imports -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function mark_as_complete() {
+            $.ajax({
+                url: '/courses/course/mark_as_completed/{{course_name}}/{{article._id}}',
+                success: function() {
+                    let completeState = document.getElementById("complete_button").textContent.trim();
+                    console.log(completeState);
+                    document.getElementById("complete_button").textContent = (completeState === "Completed!")? "Mark as complete": "Completed!";
+                }
+            });
+        }
+    </script>
+    <!-- JS imports start -->
     <script src="{{url_for('static', filename='/course/assets/js/jquery.min.js')}}"></script>
     <script src="{{url_for('static', filename='/course/assets/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="https://kit.fontawesome.com/f65143ef3d.js" crossorigin="anonymous"></script>
+    <!-- JS imports end -->
 {% endblock %}

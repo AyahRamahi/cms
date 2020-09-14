@@ -4,44 +4,78 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <!-- favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <title>login</title>
+    
+    <title>Login</title>
+
+    <!-- stylesheets import start -->
     <link rel="stylesheet" href="{{url_for('static', filename='login/assets/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='login/assets/css/Login-Form-Clean.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='login/assets/css/styles.css')}}">
+    <!-- stylesheets import end -->
 </head>
 
 <body>
-    <!-- Start: Login Form Clean -->
-    <div class="login-clean" style="background-color: #d4ebf0;">
+    <!-- login form start -->
+    <div class="login-clean">
         <form method="post" style="max-width: 500px;">
+            <!-- home icon -->
+            <a href="/">
+                <i class="fas fa-home" style="font-size: larger; color:#de5b15;"></i>
+            </a>
+
+            <!-- form subject -->
             <h2 class="sr-only">Login Form</h2>
             {{ form.hidden_tag() }}
+
+            <!-- form logo -->
             <div class="illustration">
                 <h1 style="color: #de5b15;">LOGIN</h1>
                 <hr>
             </div>
+
+            <!-- username -->
             <div class="form-group">
                 {{ form.username(class_="form-control", placeholder="Username") }}
             </div>
+
+            <!-- password -->
             <div class="form-group">
                 {{ form.password(class_="form-control", placeholder="Password") }}
             </div>
+
+            <!-- forgot email password -->
             <a class="forgot" href="#">Forgot your email or password?</a>
+            
+            <!-- log in button start -->
             <div class="form-group">
-                <button class="btn btn-primary btn-block" type="submit" style="background-color: #de5b15;">Log In</button>
+                <button class="btn btn-primary btn-block" type="submit" style="background-color: #de5b15;">
+                    Log In
+                </button>
             </div>
-            <a class="forgot" href="{{ url_for('register') }}">Don't have an account? Register here.</a>
+            <!-- log in button end -->
+
+            <!-- register link -->
+            <a class="forgot" href="{{ url_for('register') }}">
+                Don't have an account? Register here.
+            </a>
+
+            <!-- flash section start -->
             <div class="container" style="margin-top:20px;">
                 {% include "flash.html" %}
                 {% block content %}{% endblock %}
             </div>
+            <!-- flash section end -->
         </form>
     </div>
-    
-    <!-- End: Login Form Clean -->
+    <!-- login form end -->
+
+    <!-- JS imports start -->
     <script src="{{url_for('static', filename='login/assets/js/jquery.min.js')}}"></script>
     <script src="{{url_for('static', filename='login/assets/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="https://kit.fontawesome.com/f65143ef3d.js" crossorigin="anonymous"></script>
+    <!-- JS imports end -->
 </body>
 
 </html>

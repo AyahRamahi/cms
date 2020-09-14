@@ -2,27 +2,44 @@
 
 {% block title %} Project Name {% endblock %} 
 {% block stylesheets %}
+    <!-- stylesheets import start -->
     <link rel="stylesheet" href="static/home/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,900&amp;subset=cyrillic">
     <link rel="stylesheet" href="static/home/assets/fonts/ionicons.min.css">
     <link rel="stylesheet" href="static/home/assets/css/styles.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
+    <!-- stylesheets import end -->
 {% endblock %}
 
 {% block content %}
+    <!-- slogan section start -->
     <div style="background-color: #B5DFE7;opacity: 0.55;height: 60vh;">
-        <h3 class="text-capitalize text-center" id="brief-text" style="width: 80%;height: 30vh;margin-left: auto;margin-right: auto;font-family: 'Source Sans Pro', sans-serif;color: rgb(0,34,67);font-size: 35px;margin-top: auto;padding-top: 10vh;"><br>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue dui sit amet sapien ullamcorper mollis.<br><br></h3>
+        <h3 class="text-capitalize text-center" id="brief-text" style="width: 80%;height: 30vh;margin-left: auto;margin-right: auto;font-family: 'Source Sans Pro', sans-serif;color: rgb(0,34,67);font-size: 35px;margin-top: auto;padding-top: 10vh;">
+            <br>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue dui sit amet sapien ullamcorper mollis.
+            <br>
+            <br>
+        </h3>
     </div>
-    <!-- Start: Brands -->
-    <div class="brands"><a href="#"> <img src="static/home/assets/img/nano-lab-logo-icon.png"><img src="static/home/assets/img/nano-lab-logo-icon.png"><img src="static/home/assets/img/nano-lab-logo-icon.png"></a></div>
-    <!-- End: Brands -->
+    <!-- slogan section end -->
+    
+    <!-- brands section start -->
+    <div class="brands">
+        <a href="#">
+            <img src="static/home/assets/img/nano-lab-logo-icon.png">
+            <img src="static/home/assets/img/nano-lab-logo-icon.png">
+            <img src="static/home/assets/img/nano-lab-logo-icon.png">
+        </a>
+    </div>
+    <!-- brands section end -->
 {% endblock %}
 
 {% block scripts %}
+    <!-- JS imports start -->
     <script src="static/home/assets/js/jquery.min.js"></script>
     <script src="static/home/assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
     <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
     <script src="static/home/assets/js/script.min.js"></script>
+    <!-- JS imports end -->
 {% endblock %}

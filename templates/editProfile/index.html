@@ -1,0 +1,49 @@
+{% extends "layout/index.html" %}
+
+{% block title %} Edit Profile {% endblock %} 
+{% block stylesheets %}
+    <!-- stylesheets import start -->
+    <link rel="stylesheet" href="static/editProfile/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/editProfile/assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="static/editProfile/assets/css/orange-navbar.css">
+    <link rel="stylesheet" href="static/editProfile/assets/css/styles.css">
+    <link rel="stylesheet" href="static/editProfile/assets/css/Edit-Form-Clean.css">
+    <!-- stylesheets import end -->
+{% endblock %}
+
+{% block content %}
+    <div style="background-color: #ffffff;">
+        <!-- edit profile form start -->
+        <div class="edit-clean">
+            <form method="post" style="max-width: 500px;">
+                <!-- header -->
+                <h2 class="sr-only">Edit Profile</h2>
+                {{ form.hidden_tag() }}
+                
+                <!-- first name -->
+                <div class="form-group">
+                    {{ form.first_name(class_="form-control", placeholder=first_name) }}
+                </div>
+
+                <!-- last name -->
+                <div class="form-group">
+                    {{ form.last_name(class_="form-control", placeholder=last_name) }}
+                </div>
+
+                <!-- save button -->
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit" style="background-color: #de5b15;">Save</button>
+                </div>
+            </form>
+        </div>
+        <!-- edit profile form end -->
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <!-- JS imports start -->
+    <script src="static/editProfile/assets/js/jquery.min.js"></script>
+    <script src="static/editProfile/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="static/editProfile/assets/js/Swiper-Slider-Card-For-Blog-Or-Product.js"></script>
+    <!-- JS imports end -->
+{% endblock %}
