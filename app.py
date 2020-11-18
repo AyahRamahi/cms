@@ -33,6 +33,7 @@ def course(course_name):
     course_info = get_course_info(course_name)
     course_content = course_info['content']
     course_description = course_info['description']
+    print(course_description)
     return render_template(
         'course/index.html',
         course_name = course_name,
@@ -84,8 +85,6 @@ def mark_as_completed(id, course_name):
         "state":"success",
     })
 
-
-
 @app.route('/auth/register', methods=["GET","POST"])
 def register():
     # register a user
@@ -112,7 +111,6 @@ def login():
     # login a user
     form = LoginForm()
     if request.method == 'POST' and form.validate_on_submit():
-        # TODO: read admin username and password from config file (or sth else)
         admin_password = "admin"
         # login admin
         if form.username.data == "admin":
@@ -130,6 +128,12 @@ def login():
             flash('Wrong username or password!', category='error')
     return render_template('auth/login/index.html', title='login', form=form)
 
+
+@app.route('/auth/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("home"))
 
 @app.route('/profile')
 @login_required
@@ -165,21 +169,23 @@ def edit_profile():
 @app.route("/admin_home")
 @login_required
 def admin_home():
+    # home page of admin platform
     courses_list = get_courses()
     return render_template("admin/courses/index.html", courses_list = courses_list)
 
 @app.route("/admin_home/edit_course/<string:course_name>")
 @login_required
 def edit_course(course_name):
+    # edit course content
     course_info = get_course_info(course_name)
     course_content = course_info['content']
     course_description = course_info['description']
     return render_template("/admin/edit_course/index.html", course_name = course_name, course_content = course_content, course_description = course_description)
 
 @app.route("/admin_home/edit_article/<string:course_name>/<string:subject>/<string:article_name>" , methods=["GET", "POST"])
-#@login_required
+@login_required
 def edit_article(course_name, subject, article_name):
-    print(course_name, subject, article_name)
+    # edit article
     if request.method == 'POST':
         # changing name of article needs updating course content
         edit_article_content(course_name, subject, article_name, request.form['content'])
@@ -190,7 +196,7 @@ def edit_article(course_name, subject, article_name):
 @app.route("/admin_home/edit_course/new_subject/<string:course_name>", methods=["POST"])
 @login_required
 def new_subject(course_name):
-    # TODO: prevent having 2 subjects with same name in a course
+    # add a new subject to a course
     new_subject_name = request.form["new-subject-name"]
     add_new_course_subject(course_name, new_subject_name)
     return redirect(url_for('edit_course', course_name=course_name))
@@ -198,6 +204,7 @@ def new_subject(course_name):
 @app.route("/admin_home/edit_course/delete_subject/<string:course_name>/<string:subject>")
 @login_required
 def delete_subject(course_name, subject):
+    # deletes a subject from a course
     delete_course_subject(course_name, subject)
     return redirect(url_for('edit_course', course_name=course_name))
 

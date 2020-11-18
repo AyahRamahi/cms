@@ -82,6 +82,10 @@
                 <h1 class="course-name">{{ course_name }}</h1>
                 <hr>
 
+                {% if not article_name %}
+                    <p class="large">{{ article }}</p>
+                {% endif %}
+
                 <!-- article content -->
                 <p>{{ article.content|safe }}</p>
 

@@ -32,6 +32,32 @@ def get_course_articles_count(course_name):
         count = count + len(subject['articles'])
     return count
 
+def add_new_course_subject(course_name, new_subject_name):
+    return client.cms.courses.update_one(
+        {'name':course_name},
+            {'$push': {
+                'content': {
+                    '$each':[{
+                        'subject': new_subject_name,
+                        'articles': []
+                    }]
+                }
+            }
+        }
+    )
+
+def delete_course_subject(course_name, subject):
+    content = client.cms.courses.find_one({'name': course_name}, {'_id':0, 'content':1})['content']
+    subject_articles = next((x for x in content if x['subject'] == subject), None)['articles']
+    for article in subject_articles:
+        client.cms.articles.delete_one({'course_name': course_name, 'subject': subject, 'name': article})
+    return client.cms.courses.update_one(
+        {'name':course_name},
+            {'$pull': {
+                'content':  {'subject': subject }
+            }
+        }
+    )
 
 ##############################################################################
 ############################# Article functions ##############################
@@ -60,6 +86,21 @@ def mark_article_completed(username, id, course_name):
         {'_id': username},
             {'$push': {
                 'completed_articles':  id 
+            }
+        }
+    )
+
+def get_article_content(course_name, subject, article_name):
+    return client.cms.articles.find_one(
+        {'course_name':course_name, 'subject':subject, 'name':article_name},
+        {'_id':0, 'content':1}
+    )['content']
+
+def edit_article_content(course_name, subject, article_name, article_content):
+    return client.cms.articles.update_one(
+        {'course_name': course_name, 'subject': subject, 'name': article_name},
+            {'$set': {
+                'content':  article_content
             }
         }
     )
@@ -206,51 +247,6 @@ def change_name(username, first_name, last_name):
             {'$set':{
                 'first_name': first_name,
                 'last_name': last_name
-            }
-        }
-    )
-
-###################################################################
-# new stuff / order later /
-########################################
-def add_new_course_subject(course_name, new_subject_name):
-    return client.cms.courses.update_one(
-        {'name':course_name},
-            {'$push': {
-                'content': {
-                    '$each':[{
-                        'subject': new_subject_name,
-                        'articles': []
-                    }]
-                }
-            }
-        }
-    )
-
-def delete_course_subject(course_name, subject):
-    content = client.cms.courses.find_one({'name': course_name}, {'_id':0, 'content':1})['content']
-    subject_articles = next((x for x in content if x['subject'] == subject), None)['articles']
-    for article in subject_articles:
-        client.cms.articles.delete_one({'course_name': course_name, 'subject': subject, 'name': article})
-    return client.cms.courses.update_one(
-        {'name':course_name},
-            {'$pull': {
-                'content':  {'subject': subject }
-            }
-        }
-    )
-
-def get_article_content(course_name, subject, article_name):
-    return client.cms.articles.find_one(
-        {'course_name':course_name, 'subject':subject, 'name':article_name},
-        {'_id':0, 'content':1}
-    )['content']
-
-def edit_article_content(course_name, subject, article_name, article_content):
-    return client.cms.articles.update_one(
-        {'course_name': course_name, 'subject': subject, 'name': article_name},
-            {'$set': {
-                'content':  article_content
             }
         }
     )
